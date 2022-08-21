@@ -1,4 +1,5 @@
 const { sequelize, User, Room } = require("../models/index");
+
 const roomService = require("../services/roomService");
 const ResponseDto = require("../dto/ResponseDto");
 const userService = require("../services/userService");
@@ -17,8 +18,12 @@ module.exports = {
             res.status(200).send(new ResponseDto(200, "모임방 생성 성공"));
         } catch (err) {
             await transaction?.rollback();
-            console.log(err);
-            res.status(500).send(new ResponseDto(500, "모임방 생성 실패"));
+            res.status(500).send(
+                new ResponseDto(
+                    500,
+                    err.message ? err.message : "모임방 생성 실패"
+                )
+            );
         }
     },
     deleteRoom: async function (req, res) {
@@ -171,5 +176,12 @@ module.exports = {
                     )
                 );
         }
+    },
+
+    postReceipt: async function (req, res) {
+        const imageURL = req.file.location;
+        //req.file은 메타데이터 req.file.location은 s3 이미지경로
+        roomService.saveReceipt;
+        res.status(200).json({ img: imageURL });
     },
 };
