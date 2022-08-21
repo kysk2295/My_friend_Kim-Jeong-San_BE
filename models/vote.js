@@ -1,33 +1,25 @@
-const { INTEGER } = require("sequelize");
+const { INTEGER, INET } = require("sequelize");
 const Sequelize = require("sequelize");
 
-module.exports = class Payemnt extends Sequelize.Model {
+module.exports = class Vote extends Sequelize.Model {
     static init(sequelize) {
         return super.init(
             {
-                amount: {
+                user_id: {
                     type: INTEGER,
                     allowNull: false,
                 },
-                date: {
-                    type: Sequelize.DATEONLY,
-                    allowNull: true,
-                },
-                payerId: {
-                    type: INTEGER,
-                    allowNull: false,
-                },
-                group: {
+                items: {
                     type: Sequelize.JSON,
-                    allowNull: true,
+                    allowNull: false,
                 },
             },
             {
                 sequelize,
                 timestamps: true, // create at 에 자동 설정
                 underscored: false,
-                modelName: "Payment",
-                tableName: "payments",
+                modelName: "Vote",
+                tableName: "votes",
                 paranoid: true,
                 charset: "utf8mb4",
                 collate: "utf8mb4_general_ci",
@@ -35,6 +27,7 @@ module.exports = class Payemnt extends Sequelize.Model {
         );
     }
     static associate(db) {
-        db.Payment.belongsTo(db.Room);
+        db.Vote.belongsTo(db.Poll);
+        db.Vote.belongsTo(db.Menu);
     }
 };

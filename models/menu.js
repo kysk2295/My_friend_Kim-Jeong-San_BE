@@ -1,21 +1,14 @@
 const Sequelize = require("sequelize");
 const { INTEGER } = require("sequelize");
+const { Poll } = require(".");
 
 module.exports = class Menu extends Sequelize.Model {
     static init(sequelize) {
         return super.init(
             {
-                name: {
-                    type: Sequelize.STRING(30),
+                poll_id: {
+                    type: Sequelize.STRING(200),
                     allowNull: false,
-                },
-                amount: {
-                    type: INTEGER,
-                    allowNull: false,
-                },
-                group: {
-                    type: Sequelize.JSON,
-                    allowNull: true,
                 },
             },
             {
@@ -30,7 +23,5 @@ module.exports = class Menu extends Sequelize.Model {
             }
         );
     }
-    static associate(db) {
-        db.Menu.belongsTo(db.Receipt);
-    }
+    static associate(db) {}
 };

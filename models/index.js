@@ -9,6 +9,9 @@ const Receipt = require("./receipt");
 const AccountBook = require("./accountBook");
 const Menu = require("./menu");
 const UserRoom = require("./userRoom");
+const Item = require("./item");
+const Vote = require("./vote");
+const Poll = require("./poll");
 
 const db = {};
 const sequelize = new Sequelize(
@@ -29,6 +32,9 @@ db.Receipt = Receipt;
 db.Menu = Menu;
 db.AccountBook = AccountBook;
 db.UserRoom = UserRoom;
+db.Item = Item;
+db.Vote = Vote;
+db.Poll = Poll;
 
 User.init(sequelize);
 Account.init(sequelize);
@@ -38,6 +44,9 @@ Receipt.init(sequelize);
 AccountBook.init(sequelize);
 Menu.init(sequelize);
 UserRoom.init(sequelize);
+Item.init(sequelize);
+Vote.init(sequelize);
+Poll.init(sequelize);
 
 User.associate(db);
 Account.associate(db);
@@ -46,5 +55,8 @@ Receipt.associate(db);
 Payment.associate(db);
 Menu.associate(db);
 UserRoom.associate(db);
+Item.associate(db);
+Vote.associate(db);
+Poll.associate(db);
 
 module.exports = db;
