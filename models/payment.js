@@ -14,7 +14,7 @@ module.exports = class Payemnt extends Sequelize.Model {
                     allowNull: true,
                 },
                 payerId: {
-                    type: INTEGER,
+                    type: Sequelize.STRING(300),
                     allowNull: false,
                 },
                 group: {
