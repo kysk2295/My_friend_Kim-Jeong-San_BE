@@ -27,6 +27,7 @@ module.exports = {
             group.forEach((userId) => {
                 room.addUser(userId, { paranoid: false });
             });
+        return room;
     },
     findRoomById: async function (roomId) {
         return await Sequelize.Room.findOne({
