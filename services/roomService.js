@@ -4,6 +4,13 @@ const UserDto = require("../dto/UserDto");
 
 module.exports = {
     createRoom: async function (req, transaction) {
+        const group = req.body.group;
+        if (group)
+            for (i = 0; i < group.length; i++) {
+                await userService.findUserById(group[i]).then((user) => {
+                    if (!user) throw Error(`${group[i]} 는 없는 회원입니다`);
+                });
+            }
         const room = await Sequelize.Room.create(
             {
                 name: req.body.name,
@@ -16,13 +23,11 @@ module.exports = {
                 transaction: transaction,
             }
         );
-        const group = req.body.group;
         if (group)
             group.forEach((userId) => {
-                userService.findUserById(userId).then((user) => {
-                    if (user) room.addUser(user.id, { paranoid: false });
-                });
+                room.addUser(userId, { paranoid: false });
             });
+        return room;
     },
     findRoomById: async function (roomId) {
         return await Sequelize.Room.findOne({
