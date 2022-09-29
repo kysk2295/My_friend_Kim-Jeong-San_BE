@@ -119,6 +119,8 @@ web_modules/
 # Yarn Integrity file
 .yarn-integrity
 
+
+# ////////////  [ 추가 필요]   //////////////
 # dotenv environment variable files
 .env
 .env.development.local
@@ -210,7 +212,7 @@ dist
 *.code-workspace
 
 #보안관련
-# package-lock.json
-# config/
+package-lock.json
+config/
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,node,visualstudiocode
